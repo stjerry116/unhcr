@@ -1,25 +1,29 @@
-function WriteToFile(passForm) {
- 
-    set fso = CreateObject("Scripting.FileSystemObject"); 
-    set s   = fso.CreateTextFile("<your Path>/filename.txt", True);
- 
-    var firstName = document.getElementById('FirstName');
-    var lastName  = document.getElementById('lastName');
- 
-    s.writeline("First Name :" + FirstName);
-    s.writeline("Last Name :" + lastName);
- 
-    s.writeline("-----------------------------");
-    s.Close();
- }
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>How to Create and Save text file in JavaScript</title>
+    <script src="js/FileSaver.js"></script>
+    <script>
 
-// HTML
-<form onSubmit="WriteToFile(this)">
-<label>Type your first name:</label>
-<input type="text" name="FirstName" id="firstName" size="20">
- 
-<label>Type your last name: </abel>
-<input type="text" name="LastName" id="lastName" size="20">
- 
-<input type="submit" value="submit">
-</form>
+		function saveDynamicDataToFile() {
+
+            var userInput = document.getElementById("myText").value;
+			
+            var blob = new Blob([userInput], { type: "text/plain;charset=utf-8" });
+            saveAs(blob, "dynamic.txt");
+        }
+
+    </script>
+</head>
+<body>
+
+    <textarea id="myText" rows="4" cols="50">
+ We love to share our experiments, ideas, and knowledge with everyone by writing articles on the latest technology trends.
+    </textarea>
+
+    <button type="button" onclick="saveDynamicDataToFile();">Click to Save</button>
+	
+</body>
+</html>
