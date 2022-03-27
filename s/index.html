@@ -1,29 +1,97 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html>
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>How to Create and Save text file in JavaScript</title>
-    <script src="js/FileSaver.js"></script>
-    <script>
-
-		function saveDynamicDataToFile() {
-
-            var userInput = document.getElementById("myText").value;
-			
-            var blob = new Blob([userInput], { type: "text/plain;charset=utf-8" });
-            saveAs(blob, "dynamic.txt");
+    <title>Save form Data in a Text File using JavaScript</title>
+    <style>
+        * {
+            box-sizing: border-box;
         }
-
-    </script>
+    	div {
+            padding: 10px;
+            background-color: #f6f6f6;
+            overflow: hidden;
+        }
+    	input[type=text], textarea, select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        input[type=button]{ 
+            width: auto;
+            float: right;
+            cursor: pointer;
+            padding: 7px;
+        }
+    </style>
 </head>
 <body>
+    <div>
+        
+        <!--Add few elements to the form-->
 
-    <textarea id="myText" rows="4" cols="50">
- We love to share our experiments, ideas, and knowledge with everyone by writing articles on the latest technology trends.
-    </textarea>
+        <div>
+            <input type="text" id="txtName" placeholder="Enter your name" />
+        </div>
+        <div>
+            <input type="text" id="txtAge" placeholder="Enter your age" />
+        </div>
+        <div>
+            <input type="text" id="txtEmail" placeholder="Enter your email address" />
+        </div>
+        <div>
+            <select id="selCountry">
+                <option selected value="">-- Choose the country --</option>
+                <option value="India">India</option>
+                <option value="Japan">Japan</option>
+                <option value="USA">USA</option>
+            </select>
+        </div>
+        <div>
+            <textarea id="msg" name="msg" placeholder="Write some message ..." style="height:100px"></textarea>
+        </div>
 
-    <button type="button" onclick="saveDynamicDataToFile();">Click to Save</button>
-	
+        <!--Add to button to save the data.-->
+        <div>
+            <input type="button" id="bt" value="Save data to file" onclick="saveFile()" />
+        </div>
+    </div>
 </body>
+<script>
+    let saveFile = () => {
+    	
+        // Get the data from each element on the form.
+    	const name = document.getElementById('txtName');
+        const age = document.getElementById('txtAge');
+        const email = document.getElementById('txtEmail');
+        const country = document.getElementById('selCountry');
+        const msg = document.getElementById('msg');
+        
+        // This variable stores all the data.
+        let data = 
+            '\r Name: ' + name.value + ' \r\n ' + 
+            'Age: ' +age.value + ' \r\n ' + 
+            'Email: ' + email.value + ' \r\n ' + 
+            'Country: ' + country.value + ' \r\n ' + 
+            'Message: ' + msg.value;
+        
+        // Convert the text to BLOB.
+        const textToBLOB = new Blob([data], { type: 'text/plain' });
+        const sFileName = 'formData.txt';	   // The file to save the data.
+
+        let newLink = document.createElement("a");
+        newLink.download = sFileName;
+
+        if (window.webkitURL != null) {
+            newLink.href = window.webkitURL.createObjectURL(textToBLOB);
+        }
+        else {
+            newLink.href = window.URL.createObjectURL(textToBLOB);
+            newLink.style.display = "none";
+            document.body.appendChild(newLink);
+        }
+
+        newLink.click(); 
+    }
+</script>
 </html>
