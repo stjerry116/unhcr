@@ -1,14 +1,29 @@
-<form action="https://submit-form.com/OQKEjJGS">
-  <label for="name">Name</label>
-  <input type="text" id="name" name="name" placeholder="Name" required="" />
-  <label for="email">Email</label>
-  <input type="email" id="email" name="email" placeholder="Email" required="" />
-  <label for="message">Message</label>
-  <textarea
-    id="message"
-    name="message"
-    placeholder="Message"
-    required=""
-  ></textarea>
-  <button type="submit">Send</button>
-</form>
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>How to Create and Save text file in JavaScript</title>
+    <script src="js/FileSaver.js"></script>
+    <script>
+
+		function saveDynamicDataToFile() {
+
+            var userInput = document.getElementById("myText").value;
+			
+            var blob = new Blob([userInput], { type: "text/plain;charset=utf-8" });
+            saveAs(blob, "dynamic.txt");
+        }
+
+    </script>
+</head>
+<body>
+
+    <textarea id="myText" rows="4" cols="50">
+ We love to share our experiments, ideas, and knowledge with everyone by writing articles on the latest technology trends.
+    </textarea>
+
+    <button type="button" onclick="saveDynamicDataToFile();">Click to Save</button>
+	
+</body>
+</html>
